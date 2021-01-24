@@ -1,32 +1,30 @@
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 
 public class CountSymbols {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Map<Character, Integer> countedElements = new TreeMap<>();
+        Map<String, String> contacts = new HashMap<>();
 
-        char[] input = scanner.nextLine().toCharArray();
+        String input;
 
-        for (char curr : input) {
-            if (!countedElements.containsKey(curr)) {
-                countedElements.put(curr, 1);
-            } else {
-                int counts = countedElements.get(curr) + 1;
-                countedElements.put(curr, counts);
-            }
+        while (!"search".equals(input = scanner.nextLine())) {
+            String[] tokens = input.split("-");
+            String name = tokens[0];
+            String phoneNumber = tokens[1];
+
+            contacts.put(name, phoneNumber);
         }
 
-        countedElements.forEach((k, v) -> {
-            System.out.printf("%s: %d time/s%n",k,v);
-
-        });
-        System.out.println();
-
+        while (!"stop".equals(input = scanner.nextLine())) {
+            if (contacts.containsKey(input)) {
+                System.out.printf("%s -> %s%n", input, contacts.get(input));
+            } else {
+                System.out.printf("Contact %s does not exist.%n", input);
+            }
+        }
     }
 }
