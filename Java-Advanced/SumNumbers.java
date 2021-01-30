@@ -1,20 +1,28 @@
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 
 public class SumNumbers {
     public static void main(String[] args) {
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        int count=0;
-        int totalSum=0;
+        String[] listInput = scanner.nextLine().split(" ");
+        Predicate<String> isUpper= n->Character.isUpperCase(n.charAt(0));
+        List<String> result = new ArrayList<>();
 
-        int [] numbers= Arrays.stream(scanner.nextLine().split(", "))
-        .mapToInt(Integer::parseInt).toArray();
+        for (int i = 0; i < listInput.length; i++) {
+            if(isUpper.test(listInput[i])){
+                result.add(listInput[i]);
+            }
+        }
 
-        System.out.printf("Count = %d%n",count = numbers.length);
-        System.out.printf("Sum = %d%n",Arrays.stream(numbers).sum());
+        Consumer<String> print= System.out::println;
+        System.out.println(result.size());
+        result.forEach(print);
+
     }
 }
